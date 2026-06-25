@@ -1,12 +1,20 @@
 package com.neo_bank.account_service.entity;
 
+import com.neo_bank.account_service.enums.AccountStatus;
+import com.neo_bank.account_service.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "accounts")
+@Table(
+        name = "accounts",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "account_number")
+        }
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,29 +26,47 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(
+            name = "account_number",
+            nullable = false,
+            unique = true,
+            length = 20
+    )
     private String accountNumber;
 
     @Column(nullable = false)
     private Long customerId;
 
-    @Column(nullable = false)
-    private String accountType;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private AccountType accountType;
 
-    @Column(nullable = false)
-    private Double balance;
+    @Column(nullable = false, precision = 19, scale = 2)
+    private BigDecimal balance;
 
-    @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private AccountStatus status;
 
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist
     public void prePersist() {
+
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
+
+        if (balance == null) {
+            balance = BigDecimal.ZERO;
+        }
+
+        if (status == null) {
+            status = AccountStatus.ACTIVE;
+        }
     }
 
     @PreUpdate

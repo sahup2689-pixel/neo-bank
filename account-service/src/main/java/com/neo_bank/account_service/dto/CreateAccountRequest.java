@@ -1,18 +1,22 @@
 package com.neo_bank.account_service.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import com.neo_bank.account_service.enums.AccountType;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 public class CreateAccountRequest {
 
-    @NotNull
+    @NotNull(message = "Customer Id is required")
     private Long customerId;
 
-    @NotBlank
-    private String accountType;
+    @NotNull(message = "Account Type is required")
+    private AccountType accountType;
 
-    @NotNull
-    private Double balance;
+    @NotNull(message = "Initial balance is required")
+    @PositiveOrZero(message = "Initial balance cannot be negative")
+    private BigDecimal initialBalance;
 }
