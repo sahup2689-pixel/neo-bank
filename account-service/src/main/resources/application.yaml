@@ -17,7 +17,7 @@ eureka:
   datasource:
     url: jdbc:postgresql://localhost:5432/neo_bank
     username: postgres
-    password: postgres
+    password: root
 
   jpa:
     hibernate:
