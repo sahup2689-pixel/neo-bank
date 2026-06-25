@@ -2,7 +2,7 @@ package com.neo_bank.user_service.userDTO;
 
 public class UserRegistrationRequest {
     private String fullName;
-    private String Email;
+    private String email;
     private Long mobileNumber;
     private String password;
 
@@ -11,7 +11,7 @@ public class UserRegistrationRequest {
 
     public UserRegistrationRequest(String fullName, String email, Long mobileNumber, String password) {
         this.fullName = fullName;
-        Email = email;
+        this.email = email;
         this.mobileNumber = mobileNumber;
         this.password = password;
     }
@@ -25,11 +25,11 @@ public class UserRegistrationRequest {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public Long getMobileNumber() {

@@ -8,24 +8,37 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
+private final UserRepository userRepository;
+//
+public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+//
+//    public String register(UserRegistrationRequest userRegistrationRequest){
+//        if (userRepository.existsByEmail(userRegistrationRequest.getEmail())){
+//            return "Email Already Exists";
+//        }
+//
+//        UserEntity user = new UserEntity();
+//        user.setFullname(userRegistrationRequest.getFullName());
+//        user.setMobileNumber(userRegistrationRequest.getMobileNumber());
+//        user.setEmail(userRegistrationRequest.getEmail());
+//        user.setPassword(userRegistrationRequest.getPassword());
+//
+//        userRepository.save(user);
+//        return "User Register Successfully";
+//    }
+public String register(UserRegistrationRequest userRegistrationRequest){
 
-    public String register(UserRegistrationRequest userRegistrationRequest){
-        if (userRepository.existsByEmail(userRegistrationRequest.getEmail())){
-            return "Email Already Exists";
-        }
+    UserEntity user = new UserEntity();
 
-        UserEntity user = new UserEntity();
-        user.setFullname(userRegistrationRequest.getFullName());
-        user.setMobileNumber(userRegistrationRequest.getMobileNumber());
-        user.setEmail(userRegistrationRequest.getEmail());
-        user.setPassword(userRegistrationRequest.getPassword());
+    user.setFullname(userRegistrationRequest.getFullName());
+    user.setMobileNumber(userRegistrationRequest.getMobileNumber());
+    user.setEmail(userRegistrationRequest.getEmail());
+    user.setPassword(userRegistrationRequest.getPassword());
 
-        userRepository.save(user);
-        return "User Register Successfully";
-    }
+    userRepository.save(user);
+
+    return "User Register Successfully";
+}
 }

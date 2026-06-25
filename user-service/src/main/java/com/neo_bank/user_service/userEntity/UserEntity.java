@@ -9,7 +9,7 @@ public class UserEntity {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long user_id;
     private String fullName;
-    private String Email;
+    private String email;
    private Long mobileNumber;
    private String password;
 
@@ -19,7 +19,7 @@ public class UserEntity {
     public UserEntity(Long user_id, String fullname, String email, Long mobileNumber, String password) {
         this.user_id = user_id;
         this.fullName = fullname;
-        Email = email;
+        this.email = email;
         this.mobileNumber = mobileNumber;
         this.password = password;
     }
@@ -33,11 +33,11 @@ public class UserEntity {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public Long getMobileNumber() {
