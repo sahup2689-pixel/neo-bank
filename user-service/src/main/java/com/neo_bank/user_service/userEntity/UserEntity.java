@@ -9,7 +9,9 @@ public class UserEntity {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long user_id;
     private String fullName;
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
    private Long mobileNumber;
    private String password;
 

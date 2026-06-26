@@ -1,4 +1,4 @@
-spring:
+fspring:
   application:
     name: api-gateway
 
