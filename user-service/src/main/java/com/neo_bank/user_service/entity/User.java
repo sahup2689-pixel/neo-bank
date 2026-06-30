@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
         name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "email"),
-                @UniqueConstraint(columnNames = "mobileNumber")
+                @UniqueConstraint(columnNames = "mobile_Number")
         }
 )
 @Getter
@@ -38,7 +38,7 @@ public class User {
             nullable = false,
             length = 15
     )
-    private Long mobileNumber;
+    private String mobileNumber;
 
     @Column(nullable = false)
     private String password;
