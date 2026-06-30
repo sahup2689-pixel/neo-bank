@@ -1,10 +1,10 @@
 package com.neo_bank.user_service.userservice;
 
+import com.neo_bank.user_service.repository.UserRepository;
 import com.neo_bank.user_service.security.JwtUtil;
 import com.neo_bank.user_service.userDTO.LoginRequest;
 import com.neo_bank.user_service.userDTO.UserRegistrationRequest;
-import com.neo_bank.user_service.userEntity.UserEntity;
-import com.neo_bank.user_service.userRepository.UserRepository;
+import com.neo_bank.user_service.entity.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ private final UserRepository userRepository;
 
     public String register(UserRegistrationRequest userRegistrationRequest){
 
-    UserEntity user = new UserEntity();
+    User user = new User();
 
     user.setFullname(userRegistrationRequest.getFullName());
     user.setMobileNumber(userRegistrationRequest.getMobileNumber());
@@ -34,7 +34,7 @@ user.setPassword(passwordEncoder.encode(userRegistrationRequest.getPassword()));
 }
 
 public String login(LoginRequest request){
-        UserEntity user = userRepository.findByEmail(request.getEmail());
+        User user = userRepository.findByEmail(request.getEmail());
         if (user == null){
             return "User Not Found";
         }

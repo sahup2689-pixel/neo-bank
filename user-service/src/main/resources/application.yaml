@@ -6,7 +6,7 @@ spring:
     name: user-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/neobank
+    url: jdbc:postgresql://localhost:5432/neo_user_db
     username: postgres
     password: root
 #    driver-class-name: org.postgresql.Driver
