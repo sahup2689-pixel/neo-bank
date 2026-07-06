@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.neo_bank.account_service.client.dto.UserServiceClient;
+import com.neo_bank.account_service.exception.CustomerNotFoundException;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final UserServiceClient userServiceClient;
 
     // ==========================
     // CREATE ACCOUNT
@@ -28,16 +31,21 @@ public class AccountService {
     @Transactional
     public AccountResponse createAccount(CreateAccountRequest request) {
 
-        log.info("Creating account for customerId={}",
-                request.getCustomerId());
+        log.info("Creating account for customerId={}", request.getCustomerId());
+
+        Boolean userExists = userServiceClient.userExists(request.getCustomerId());
+
+        if (!Boolean.TRUE.equals(userExists)) {
+            throw new CustomerNotFoundException(
+                    "Customer not found with id: " + request.getCustomerId()
+            );
+        }
 
         String accountNumber;
 
         do {
-            accountNumber =
-                    AccountNumberGenerator.generateAccountNumber();
-        }
-        while (accountRepository.existsByAccountNumber(accountNumber));
+            accountNumber = AccountNumberGenerator.generateAccountNumber();
+        } while (accountRepository.existsByAccountNumber(accountNumber));
 
         Account account = Account.builder()
                 .accountNumber(accountNumber)
@@ -47,8 +55,7 @@ public class AccountService {
                 .status(AccountStatus.ACTIVE)
                 .build();
 
-        Account savedAccount =
-                accountRepository.save(account);
+        Account savedAccount = accountRepository.save(account);
 
         log.info("Account created successfully. Account Number={}",
                 savedAccount.getAccountNumber());

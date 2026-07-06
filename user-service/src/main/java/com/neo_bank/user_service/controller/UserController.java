@@ -49,8 +49,14 @@ public class UserController {
     // ==========================
     @GetMapping("/test")
     public ResponseEntity<String> test() {
+        return ResponseEntity.ok("User Service Running Successfully");
+    }
 
-        return ResponseEntity.ok(
-                "User Service Running Successfully");
+    // ==========================
+    // INTERNAL USER EXISTENCE CHECK
+    // ==========================
+    @GetMapping("/exists/{id}")
+    public ResponseEntity<Boolean> userExists(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.existsById(id));
     }
 }

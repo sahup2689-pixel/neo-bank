@@ -1,9 +1,11 @@
 package com.neo_bank.account_service.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.neo_bank.account_service.dto.ErrorResponse;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -42,5 +44,21 @@ public class GlobalExceptionHandler {
                         "timestamp", LocalDateTime.now(),
                         "message", ex.getMessage()
                 ));
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleCustomerNotFoundException(
+            CustomerNotFoundException ex,
+            HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .error("Customer Not Found")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .status(HttpStatus.NOT_FOUND.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

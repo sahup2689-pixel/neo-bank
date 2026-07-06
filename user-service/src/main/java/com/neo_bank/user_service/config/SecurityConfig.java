@@ -40,17 +40,15 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/users/register",
                                 "/api/users/login",
-                                "/api/users/test"
-                        )
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
+                                "/api/users/test",
+                                "/api/users/exists/**",
+                                "/api/users/*"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
 
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS
-                        )
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
                 .authenticationProvider(authenticationProvider())

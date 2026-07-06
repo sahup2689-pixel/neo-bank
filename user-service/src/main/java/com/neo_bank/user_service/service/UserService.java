@@ -108,4 +108,8 @@ public class UserService {
                 .message("Login Successful")
                 .build();
     }
+
+    public boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
 }
