@@ -1,18 +1,12 @@
+server:
+  port: 8082
+
 spring:
   application:
     name: account-service
 
   config:
     import: "optional:configserver:http://localhost:8888"
-
-server:
-  port: 8082
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-
 
   datasource:
     url: jdbc:postgresql://localhost:5432/neo_bank
@@ -22,3 +16,13 @@ eureka:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+jwt:
+  secret: 4f1b7a2c9d8e6f3a5b7c9d1e2f4a6b8c0d2e4f6a8b1c3d5e7f9a1b2c3d4e5f6
+  expiration: 86400000
