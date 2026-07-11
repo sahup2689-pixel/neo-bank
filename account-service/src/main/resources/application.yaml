@@ -9,7 +9,7 @@ spring:
     import: "optional:configserver:http://localhost:8888"
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/neo_bank
+    url: jdbc:postgresql://localhost:5432/neo_account_db
     username: postgres
     password: root
 
